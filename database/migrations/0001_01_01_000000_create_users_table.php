@@ -11,18 +11,26 @@ return new class extends Migration
      */
     public function up(): void
     {
+    // 1. TABEL USERS (Kustomisasi sesuai ERD)
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
+        
+            $table->enum('role', ['admin', 'pemilik', 'penyewa'])->default('penyewa');
+            $table->enum('status', ['pending', 'aktif', 'ditolak'])->default('pending');
+        
+            $table->string('nama_lengkap');
+            $table->string('nama_perusahaan_atau_usaha')->nullable();
+            $table->string('username')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('no_hp');
+            $table->text('alamat')->nullable();
+            $table->string('foto_identitas_atau_legalitas')->nullable();
+        
             $table->timestamps();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
+            $table->string('email')->primary(); // Tetap butuh email untuk fitur reset password default jika nanti dipakai
             $table->string('token');
             $table->timestamp('created_at')->nullable();
         });
