@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('penyewa_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('media_iklan_id')->constrained('media_iklans')->cascadeOnDelete();
-            $table->foreignId('penyewaan_id')->constrained('penyewaans')->cascadeOnDelete();
+            $table->foreignId('detail_penyewaan_id')->constrained('detail_penyewaans')->cascadeOnDelete();
         
             $table->integer('rating');
             $table->text('komentar');
